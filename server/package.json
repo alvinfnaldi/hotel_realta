@@ -1,0 +1,43 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "initSeq": "npx sequelize-cli init",
+    "createDB": "npx sequelize-cli db:create",
+    "genModelRegion": "npx sequelize-cli model:generate --name Region --attributes region_code:integer,region_name:string --force",
+    "genModelCountry": "npx sequelize-cli model:generate --name Country --attributes country_id:integer,country_name:string,country_region_id:integer --force",
+    "genModelProvince": "npx sequelize-cli model:generate --name Province --attributes prov_name:string,prov_country_id:integer --force",
+    "genModelAddress": "npx sequelize-cli model:generate --name Address --attributes addr_line1:string,addr_line2:string,addr_postal_code:string,addr_spatial_location:geography,addr_prov_id:integer --force",
+    "genModelCategory_Group": "npx sequelize-cli model:generate --name Category_Group --attributes cagro_name:string,cagro_description:string,cagro_type:string,cagro_icon:string,cagro_icon_url:string --force",
+    "genModelPolicy": "npx sequelize-cli model:generate --name Policy --attributes poli_name:string,poli_description:string --force",
+    "genModelPolicy_Category_Group": "npx sequelize-cli model:generate --name Policy_Category_Group --attributes poca_cagro_id:integer --force",
+    "genModelPrice_Item": "npx sequelize-cli model:generate --name Price_Item --attributes prit_name:string,prit_price:integer,prit_description:string,prit_type:string,prit_modified_date:date --force",
+    "genModelService_Task": "npx sequelize-cli model:generate --name Service_Task --attributes seta_name:string,seta_seq:smallint --force",
+    "genModelMember": "npx sequelize-cli model:generate --name Member --attributes memb_description:string --force",
+    "genAllModel": "concurrently \"npm run genModelRegions\"  \"npm run genModelCountry\" \"npm run genModelProvinces\" \"npm run genModelAddress\" \"npm run genModelCategory_Group\" \"npm run genModelPolicy\" \"npm run genModelPolicy_Category_Group\" \"npm run genModelPrice_Items\" \"npm run genModelService_Task\" \"npm run genModelMembers\"",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo": "npx sequelize-cli db:migrate:undo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.3",
+    "sequelize": "^6.34.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "sequelize-cli": "^6.6.2"
+  }
+}
