@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <div>
       <ul
-        className="navbar-nav sidebar sidebar-dark accordion"
+        className="navbar-nav sidebar sidebar-dark accordion h-100"
         style={{ backgroundColor: "#435585" }}
         id="accordionSidebar"
       >
@@ -95,21 +96,21 @@ const Sidebar = () => {
           >
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Menus:</h6>
-              <a className="collapse-item" href="utilities-color.html">
+              <Link className="collapse-item" to={"/master/locations"}>
                 Locations
-              </a>
-              <a className="collapse-item" href="utilities-border.html">
+              </Link>
+              <Link className="collapse-item" to={"/master/policy"}>
                 Policy
-              </a>
-              <a className="collapse-item" href="utilities-animation.html">
+              </Link>
+              <Link className="collapse-item" to={"/master/category"}>
                 Category Group
-              </a>
-              <a className="collapse-item" href="utilities-other.html">
+              </Link>
+              <Link className="collapse-item" to={"/master/priceitems"}>
                 Price Items
-              </a>
-              <a className="collapse-item" href="utilities-other.html">
+              </Link>
+              <Link className="collapse-item" to={"/master/servicetasks"}>
                 Service Task
-              </a>
+              </Link>
             </div>
           </div>
         </li>

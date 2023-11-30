@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   getListRegions,
-  // getListCountries,
-  // getListProvinces,
-  // getListCities,
   addRegion,
   deleteRegion,
   updateRegion,
@@ -11,7 +8,8 @@ import {
 } from "../actions/locationAction";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "./Loading";
-import { useNavigate } from "react-router-dom";
+import { IoMdAdd } from "react-icons/io";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
 const Content = () => {
   const {
@@ -22,35 +20,32 @@ const Content = () => {
     getDetailRegionResult,
   } = useSelector((state) => state.RegionsReducer);
 
-  const { getListCountriesResult } = useSelector(
-    (state) => state.CountriesReducer
-  );
-  const { getListProvincesResult } = useSelector(
-    (state) => state.ProvincesReducer
-  );
-  const { getListCitiesResult } = useSelector((state) => state.CitiesReducer);
+  // const { getListCountriesResult } = useSelector(
+  //   (state) => state.CountriesReducer
+  // );
+  
+  // const { getListProvincesResult } = useSelector(
+  //   (state) => state.ProvincesReducer
+  // );
+  
+  // const { getListCitiesResult } = useSelector((state) => state.CitiesReducer);
+
   const dispatch = useDispatch();
-  const navigateTo = useNavigate();
 
   const [region, setRegion] = useState({
     region_name: "",
   });
   const [id, setId] = useState("");
 
-  const [radioValue, setRadioValue] = useState("")
+  // const [radioValue, setRadioValue] = useState("");
 
-  const handleSelect = (e) => {
-    setRadioValue(e.target.value)
-    console.log(e.target.value)
-  }
-
-  const handleAdd = (e) => {
+  const handleAddRegion = (e) => {
     e.preventDefault();
     dispatch(addRegion(region));
     dispatch(getListRegions());
   };
 
-  const handleEdit = (e) => {
+  const handleEditRegion = (e) => {
     e.preventDefault();
     dispatch(updateRegion(+id, region));
     dispatch(getListRegions());
@@ -95,32 +90,31 @@ const Content = () => {
   }, [updateRegionResult, dispatch]);
 
   const regions = [].concat(getListRegionsResult);
-  const country = [].concat(getListCountriesResult);
-  const province = [].concat(getListProvincesResult);
-  const city = [].concat(getListCitiesResult);
 
   return (
     <div>
       <div class="content text-center container">
-        <div class="row justify-content-center">
-          <div class="col-2 text-start"></div>
-          <div class="col-9 text-start">
+        <div class="row justify-content-start">
+          <div class="col-12 text-start table-responsive">
             <h4>Table Region</h4>
             <table class="table align-middle">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th scope="col"></th>
                   <th scope="col">Region Id</th>
                   <th scope="col">Region Name</th>
-                  <th scope="col">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
-                      Add
-                    </button>
+                  <th scope="col" colSpan={2} className="col-1">
+                    <div class="d-grid">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        <IoMdAdd />
+                        Add
+                      </button>
+                    </div>
                     <div
                       class="modal fade"
                       id="exampleModal"
@@ -141,7 +135,6 @@ const Content = () => {
                               aria-label="Close"
                             ></button>
                           </div>
-                          {/* <form onSubmit={(e)=>handleAdd(e)}> */}
                           <div class="modal-body row align-items-center">
                             <div className="col-auto">
                               <label>Region Name</label>
@@ -157,7 +150,6 @@ const Content = () => {
                                     region_name: e.target.value,
                                   })
                                 }
-                                value={region.region_name}
                               />
                             </div>
                           </div>
@@ -170,7 +162,7 @@ const Content = () => {
                               Cancel
                             </button>
                             <button
-                              onClick={(e) => handleAdd(e)}
+                              onClick={(e) => handleAddRegion(e)}
                               type="submit"
                               class="btn btn-primary"
                               data-bs-dismiss="modal"
@@ -194,7 +186,6 @@ const Content = () => {
                         <td>
                           <div class="form-check">
                             <input
-                            onClick={(e)=> handleSelect(e)}
                               class="form-check-input"
                               type="radio"
                               name="flexRadioDefault"
@@ -205,17 +196,19 @@ const Content = () => {
                         <td>{i + 1}</td>
                         <td>{region_name}</td>
                         <td>
-                          <button
-                            onClick={() =>
-                              dispatch(getDetailRegion(region_code))
-                            }
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalEdit"
-                            className="btn btn-warning mx-1"
-                          >
-                            Edit
-                          </button>
+                          <div class="d-grid">
+                            <button
+                              onClick={() =>
+                                dispatch(getDetailRegion(region_code))
+                              }
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalEdit"
+                              className="btn btn-warning"
+                            >
+                              <FaPencilAlt />
+                            </button>
+                          </div>
                           <div
                             class="modal fade"
                             id="modalEdit"
@@ -239,7 +232,6 @@ const Content = () => {
                                     aria-label="Close"
                                   ></button>
                                 </div>
-                                {/* <form onSubmit={(e)=>handleAdd(e)}> */}
                                 <div class="modal-body row align-items-center">
                                   <div className="col-auto">
                                     <label>Region Name</label>
@@ -268,7 +260,7 @@ const Content = () => {
                                     Cancel
                                   </button>
                                   <button
-                                    onClick={(e) => handleEdit(e)}
+                                    onClick={(e) => handleEditRegion(e)}
                                     type="submit"
                                     class="btn btn-primary"
                                     data-bs-dismiss="modal"
@@ -280,12 +272,18 @@ const Content = () => {
                               </div>
                             </div>
                           </div>
-                          <button
-                            onClick={() => dispatch(deleteRegion(region_code))}
-                            className="btn btn-danger"
-                          >
-                            Delete
-                          </button>
+                        </td>
+                        <td>
+                          <div class="d-grid">
+                            <button
+                              onClick={() =>
+                                dispatch(deleteRegion(region_code))
+                              }
+                              className="btn btn-danger"
+                            >
+                              <FaTrash />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>

@@ -103,7 +103,6 @@ export const addRegion = (data) => {
 
 export const deleteRegion = (id) => {
   return (dispatch) => {
-    // loading
     dispatch({
       type: DELETE_REGION,
       payload: {
@@ -140,7 +139,7 @@ export const deleteRegion = (id) => {
           });
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Region has been deleted.",
             icon: "success",
           });
         }

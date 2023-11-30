@@ -1,8 +1,9 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import Policy from "./Policy";
+import PriceItems from "./PriceItems";
 
-const Main = () => {
+const Pri = () => {
   return (
     <div>
       <div id="wrapper">
@@ -328,11 +329,11 @@ const Main = () => {
               </ul>
             </nav>
             <div class="container-fluid">
-              <Policy/>
+              <PriceItems />
             </div>
           </div>
           <footer
-            className="navbar fixed-bottom"
+            className="sticky-footer fixed-bootom"
             style={{ backgroundColor: "#363062" }}
           >
             <div className="container my-auto">
@@ -350,4 +351,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Pri;

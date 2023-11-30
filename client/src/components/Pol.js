@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Policy from "./Policy";
 
-const Main = () => {
+const Pol = () => {
   return (
     <div>
       <div id="wrapper">
@@ -332,7 +332,7 @@ const Main = () => {
             </div>
           </div>
           <footer
-            className="navbar fixed-bottom"
+            className="sticky-footer fixed-bootom"
             style={{ backgroundColor: "#363062" }}
           >
             <div className="container my-auto">
@@ -350,4 +350,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Pol;
