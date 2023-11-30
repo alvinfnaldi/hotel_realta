@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [1, 25],
         },
-        defaultValue: "Category" || "Service" || "Facility",
       },
       cagro_icon: {
         type: DataTypes.STRING,

@@ -2,7 +2,9 @@ const { Policy } = require("../models");
 
 const getPolicy = async (req, res) => {
   try {
-    const result = await Policy.findAll();
+    const result = await Policy.findAll({
+      order: [["poli_id", "ASC"]],
+    });
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -14,7 +16,7 @@ const addPolicy = async (req, res) => {
     const { poli_name, poli_description } = req.body;
 
     if (!poli_name) {
-      res.status(400).json({ error: "Policy name must be provided" });
+      res.status(400).json({ message: "Policy name must be provided" });
     } else {
       const result = await Policy.create({
         poli_name,

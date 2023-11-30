@@ -5,6 +5,7 @@ const getRegion = async (req, res) => {
   try {
     const result = await Region.findAll({
       include: [Country],
+      order: [["region_code", "ASC"]]
     });
     res.status(200).json(result);
   } catch (error) {
@@ -15,7 +16,7 @@ const getRegion = async (req, res) => {
 const addRegion = async (req, res) => {
   try {
     const { region_name } = req.body;
-    const regionExist = await Region.findOne({ where: { region_name } });
+    const regionExist = await Region.findOne({ where: { region_name: region_name || null } });
     if (regionExist) {
       res.status(400).json({ message: `Region ${region_name} already exists` });
     } else {
@@ -90,7 +91,7 @@ const getDetailRegion = async (req, res) => {
   }
 };
 
-// country
+// countries
 const getCountry = async (req, res) => {
   try {
     const result = await Country.findAll({
@@ -106,7 +107,7 @@ const getCountry = async (req, res) => {
 const addCountry = async (req, res) => {
   try {
     const { country_name, country_region_id } = req.body;
-    const countryExist = await Country.findOne({ where: { country_name } });
+    const countryExist = await Country.findOne({ where: { country_name: country_name || null } });
 
     if (countryExist) {
       res
@@ -208,7 +209,7 @@ const addProvince = async (req, res) => {
   try {
     const { prov_name, prov_country_id } = req.body;
 
-    const provinceExist = await Province.findOne({ where: { prov_name } });
+    const provinceExist = await Province.findOne({ where: { prov_name : prov_name || null } });
 
     if (provinceExist) {
       res.status(400).json({ message: `Province ${prov_name} already exists` });
@@ -288,10 +289,12 @@ const getDetailProvince = async (req, res) => {
   }
 };
 
-// city
+// cities
 const getCity = async (req, res) => {
   try {
-    const result = await Address.findAll();
+    const result = await Address.findAll({
+      order: [["addr_id", "ASC"]]
+    });
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });

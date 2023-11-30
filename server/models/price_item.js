@@ -33,8 +33,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [1, 15],
         },
-        defaultValue:
-          "Snack" || "Facility" || "Softdrink" || "Food" || "Service",
       },
       prit_modified_date: DataTypes.DATE,
     },

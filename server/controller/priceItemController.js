@@ -2,7 +2,9 @@ const { Price_Item } = require("../models");
 
 const getPrice = async (req, res) => {
   try {
-    const result = await Price_Item.findAll();
+    const result = await Price_Item.findAll({
+      order: [["prit_id", "ASC"]]
+    });
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -11,9 +13,8 @@ const getPrice = async (req, res) => {
 
 const addPrice = async (req, res) => {
   try {
-    const { prit_name, prit_price, prit_description } = req.body;
+    const { prit_name, prit_price, prit_description, prit_type } = req.body;
 
-    let prit_type;
     const modifdate = new Date();
 
     if (!prit_name) {
